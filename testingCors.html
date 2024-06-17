@@ -7,25 +7,27 @@
 </head>
 <body>
     <h1>CORS Test</h1>
-    <button id="testCORS">Test CORS</button>
+    <button id="fetchData">Fetch Data</button>
     <p id="result"></p>
 
     <script>
-        document.getElementById('testCORS').addEventListener('click', () => {
+        document.getElementById('fetchData').addEventListener('click', () => {
             fetch('http://localhost:3000/orders', {
-                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6Ikx1YzQzIiwiaWF0IjoxNzE4NTkzMzE2LCJleHAiOjE3MTg2MTEzMTZ9.5cnw99UoUnof8hey7LhoWbytjBlCPFjCpuX5VQPOh5Q', // if authentication is needed
                 },
-                credentials: 'include', // if you need to include cookies
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
             .then(data => {
                 document.getElementById('result').textContent = JSON.stringify(data);
             })
             .catch(error => {
-                document.getElementById('result').textContent = 'CORS request failed: ' + error.message;
+                document.getElementById('result').textContent = 'Error: ' + error;
             });
         });
     </script>

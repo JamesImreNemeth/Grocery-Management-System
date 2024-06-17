@@ -1,5 +1,4 @@
-//       The following inputs will work on PostMan
-//
+//       nodemon server.js
 //       http://localhost:3000/employees/login
 //       http://localhost:3000/order
 //       http://localhost:3000/products/
@@ -64,3 +63,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
+
